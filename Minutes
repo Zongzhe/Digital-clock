@@ -1,0 +1,42 @@
+package com.fdm.threadingexercise;
+
+public class Minutes extends Thread {
+
+	private int		minutes	= 0;
+	private Hours	hours;
+
+	public int getminutes() {
+		return minutes;
+	}
+
+	public void setHours(Hours hours) {
+		this.hours = hours;
+	}
+
+	public void run() {
+		System.out.println("Minutes start");
+		while (true) {
+
+			synchronized (this) {
+
+				try {
+					wait();
+					System.out.println("Minutes waiting");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			minutes++;
+//			if(minutes==3)
+			if (minutes == 60) {
+				minutes = 0;
+				synchronized (hours) {
+					hours.notify();
+				}
+			}
+		}
+
+	}
+
+}
