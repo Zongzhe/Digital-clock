@@ -1,0 +1,29 @@
+package com.fdm.threadingexercise;
+
+public class Hours extends Thread {
+	private int	hours	= 0;
+
+	public int getHours() {
+		return hours;
+	}
+
+	public void run() {
+		while (true) {
+
+			synchronized (this) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			hours++;
+			if (hours == 24) {
+				hours = 0;
+
+			}
+		}
+
+	}
+}
