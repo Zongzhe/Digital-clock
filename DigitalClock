@@ -1,0 +1,47 @@
+package com.fdm.threadingexercise;
+
+public class DigitalClock implements Runnable {
+
+	static Seconds	seconds	= new Seconds();
+	static Minutes	minutes	= new Minutes();
+	static Hours	hours	= new Hours();
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		seconds = new Seconds();
+		minutes = new Minutes();
+		hours = new Hours();
+		seconds.setMinutes(minutes);
+		seconds.start();
+
+		minutes.setHours(hours);
+		minutes.start();
+		//		minutes.wait();
+
+		hours.start();
+		//		hours.wait();
+		System.out.println("Time: " + hours.getHours() + ":" + minutes.getminutes() + ":" + seconds.getSeconds());
+		while (true) {
+			if (seconds.secondChange == true) {
+				System.out.println("Time: " + hours.getHours() + ":" + minutes.getminutes() + ":"
+						+ seconds.getSeconds());
+			}
+
+		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println("Time: " + seconds.getSeconds());
+		while (true) {
+			for (int i = 0; i < 100000; i++) {
+
+			}
+			System.out.println("Time: " + seconds.getSeconds());
+		}
+
+	}
+
+}
